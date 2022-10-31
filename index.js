@@ -4,7 +4,7 @@ const express = require("express");
 const axios = require('axios')
 //add fetch - npm install node-fetch@2
 
-const fetch=require('node-fetch')
+const fetch = require('node-fetch')
 const app = express();
 app.use(express.text())
 app.use(express.json())
@@ -52,20 +52,20 @@ app.get("/user", (req, res) => {
 });
 //life?//
 app.get("/life", (req, res) => {
-    res.sendStatus(204);
-  });
+  res.sendStatus(204);
+});
 
-  
+
 //catch json//
-app.post('/catchuser',(req,res)=>{
+app.post('/catchuser', (req, res) => {
 
-console.log(req.body) 
- res.send("deleted product");
+  console.log(req.body)
+  res.send("deleted product");
 
 
-})  
+})
 
-app.get('/hello/:username',(req,res)=>{
+app.get('/hello/:username', (req, res) => {
   res.send(req.params.username)
   console.log(req.params.username)
 })
@@ -77,14 +77,43 @@ app.get('/hello/:username',(req,res)=>{
 
 */
 
-app.get('/lol/:champion',({params},res)=>{
+app.get('/lol', ({ params }, res) => {
   console.log(params.champion)
 
-  const championjson= async()=>{
-    const resp= await fetch('http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json')
+  const championjson = async () => {
+    try {
+      const resp = await fetch('http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json')
       const data = await resp.json();
       res.json(data)
-  
+    } catch (error) { console.log("error in json champions") }
+
+
+  }
+  championjson();
+})
+app.get('/lol/:champion', ({ params }, res) => {
+  console.log(params.champion)
+
+  const championjson = async () => {
+    try {
+      const resp = await fetch('http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json')
+      const datajson = await resp.json();
+      const {data} = datajson     
+      //object with object for 
+      for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+          const element = data[key].id;
+          if(element==params.champion){
+            console.log(element+ " in if")
+            return res.json(data[key])
+          }
+          
+        }
+      }
+      res.send("no encontrado")
+    } catch (error) { console.log('error in json champions. ${params.champion}') }
+
+
   }
   championjson();
 })
