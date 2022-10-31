@@ -1,6 +1,10 @@
 console.log("hello");
 const express = require("express");
+//add axios 
+const axios = require('axios')
+//add fetch - npm install node-fetch@2
 
+const fetch=require('node-fetch')
 const app = express();
 app.use(express.text())
 app.use(express.json())
@@ -72,5 +76,17 @@ app.get('/hello/:username',(req,res)=>{
 });
 
 */
+
+app.get('/lol/:champion',({params},res)=>{
+  console.log(params.champion)
+
+  const championjson= async()=>{
+    const resp= await fetch('http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json')
+      const data = await resp.json();
+      res.json(data)
+  
+  }
+  championjson();
+})
 app.listen(3000);
 console.log("${3000}");
