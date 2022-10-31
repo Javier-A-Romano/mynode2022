@@ -4,8 +4,12 @@ const express = require("express");
 const app = express();
 app.use(express.text())
 app.use(express.json())
+
+//morgan for logs
 var morgan = require('morgan')
 app.use(morgan('dev'))
+
+
 
 app.get('/', function (req, res) {
   res.send('hello, world!')
