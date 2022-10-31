@@ -1,4 +1,3 @@
-console.log("hello");
 const express = require("express");
 //add axios 
 const axios = require('axios')
@@ -117,5 +116,8 @@ app.get('/lol/:champion', ({ params }, res) => {
   }
   championjson();
 })
-app.listen(3000);
-console.log("${3000}");
+const PORT = process.env.PORT || 3000
+app.listen(PORT, function(){
+  console.log("Server listening in " + PORT)
+});
+
