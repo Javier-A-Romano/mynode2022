@@ -2,9 +2,9 @@ const express = require('express')
 //add fetch - npm install node-fetch@2
 
 const fetch = require('node-fetch')
-const app = express.Router()
+const router = express.Router()
 
-app.get('/lol', ({ params }, res) => {
+router.get('/lol', ({ params }, res) => {
     console.log(params.champion)
 
     const championjson = async () => {
@@ -19,7 +19,7 @@ app.get('/lol', ({ params }, res) => {
     }
     championjson();
 })
-app.get('/lol/:champion', ({ params, query }, res) => {
+router.get('/lol/:champion', ({ params, query }, res) => {
     console.log(params.champion)
 
     const championjson = async () => {
@@ -55,4 +55,4 @@ app.get('/lol/:champion', ({ params, query }, res) => {
     championjson();
 })
 
-module.exports = app
+module.exports = router
