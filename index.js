@@ -90,7 +90,7 @@ app.get('/lol', ({ params }, res) => {
   }
   championjson();
 })
-app.get('/lol/:champion', ({ params }, res) => {
+app.get('/lol/:champion', ({ params,query }, res) => {
   console.log(params.champion)
 
   const championjson = async () => {
@@ -103,7 +103,16 @@ app.get('/lol/:champion', ({ params }, res) => {
         if (Object.hasOwnProperty.call(data, key)) {
           const element = data[key].id;
           if(element==params.champion){
-            console.log(element+ " in if")
+            console.log(element+ " in if") 
+            console.log(query.key)
+            if (query.key === "key"){
+              
+              return res.send("key=" + data[key].key )
+            }
+            if (query.title === "title"){
+              
+              return res.send("Title=" + data[key].title )
+            }
             return res.json(data[key])
           }
           
@@ -116,6 +125,7 @@ app.get('/lol/:champion', ({ params }, res) => {
   }
   championjson();
 })
+
 const PORT = process.env.PORT || 3000
 app.listen(PORT, function(){
   console.log("Server listening in " + PORT)
