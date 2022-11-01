@@ -11,7 +11,13 @@ app.use(express.json())
 //morgan for logs
 var morgan = require('morgan')
 app.use(morgan('dev'))
-
+app.use(({query},res,next)=>{
+  if(query.pass=="123"){next()}
+  
+  else{
+    res.send("no autorizado agregar al final del link= ?pass=123")
+  }
+})
 
 
 app.get('/', function (req, res) {
