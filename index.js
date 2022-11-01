@@ -7,6 +7,7 @@ app.use(express.json())
 
 const learning= require('./routers/learning')
 const champions= require('./routers/champions')
+const championdata= require('./routers/championdata')
 //morgan for logs
 var morgan = require('morgan');
 const patch=require('path')
@@ -27,6 +28,7 @@ app.use(({ query }, res, next) => {
 
 app.use(learning)
 app.use(champions)
+app.use(championdata)
 //ejs for views
 app.use('/images',(req,res)=>{
   
