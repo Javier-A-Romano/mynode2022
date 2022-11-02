@@ -48,7 +48,7 @@ router.get('/lol/:champion', ({ params, query }, res) => {
                 }
             }
             res.send("no encontrado")
-        } catch (error) { console.log('error in json champions. ${params.champion}') }
+        } catch (error) { console.log(`error in json champions. ${params.champion}`) }
 
 
     }
