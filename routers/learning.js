@@ -64,4 +64,36 @@ router.get('/', function (req, res) {
   
   */
   
+  var mercadopago = require('mercadopago');
+  mercadopago.configure({
+      access_token: 'APP_USR-4539738195039843-112221-7bdeb6f992b5f0c439c8504b1a8c1d89-1245850001'
+  });
+  
+  var preference = {
+    back_urls:{
+      success:'http://localhost:3000/lol?pass=123'
+    },
+    items: [
+      {
+        title: 'Test',
+        quantity: 1,
+        currency_id: 'ARS',
+        unit_price: 10.5
+      }
+    ]
+    ,notification_url:'http://localhost:3000/lol/1?pass=123'
+  }; 
+
+  router.get('/mp', (req, res) => {
+    mercadopago.preferences
+  .create(preference)
+  .then(function (response) {
+    res.send(`<a href="${response.body.init_point}">PAGAR con MP<a> `)
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
+    
+  }) 
 module.exports= router

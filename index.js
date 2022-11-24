@@ -29,6 +29,7 @@ app.use(({ query }, res, next) => {
 app.use(learning)
 app.use(champions)
 app.use(championdata)
+
 //ejs for views
 app.use('/images',(req,res)=>{
   
